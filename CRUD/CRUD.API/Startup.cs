@@ -75,6 +75,8 @@ namespace CRUD.API
 
             app.UseAuthorization();
 
+            app.UseMiddleware(typeof(ExceptionHandlerMiddleware));
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
