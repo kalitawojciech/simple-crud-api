@@ -78,5 +78,38 @@ namespace CRUD.Services.Services
 
             _booksRepository.RemoveBook(bookFromDb);
         }
+
+        public async Task EditBook(EditBookRequest editBookRequest)
+        {
+            Book bookFromDb = await _booksRepository.GetBookById(editBookRequest.Id);
+
+            if (bookFromDb == null)
+            {
+                throw new BadRequestException("Nie istnieje taka książka!!");
+            }
+
+            if (string.IsNullOrEmpty(editBookRequest.Title))
+            {
+                throw new BadRequestException("Błędna nazwa!!");
+            }
+
+            if (editBookRequest.PagesCount < 1)
+            {
+                throw new BadRequestException("Błędna liczba stron!!");
+            }
+
+            if(editBookRequest.Title.ToLower() != bookFromDb.Title.ToLower())
+            {
+                if ((await _booksRepository.GetBookByTitle(editBookRequest.Title)) != null)
+                {
+                    throw new BadRequestException("Ten tytuł został już użyty!!");
+                }
+            }
+
+            bookFromDb.Title = editBookRequest.Title;
+            bookFromDb.PagesCount = editBookRequest.PagesCount;
+
+            await _booksRepository.SaveChanges();
+        }
     }
 }

@@ -49,5 +49,13 @@ namespace CRUD.API.Controllers
 
             return Ok();
         }
+
+        [HttpPut]
+        public async Task<IActionResult> EditBook([FromBody] EditBookRequest editBookRequest)
+        {
+            await _booksService.EditBook(editBookRequest);
+
+            return Ok();
+        }
     }
 }

@@ -50,5 +50,10 @@ namespace CRUD.DAL.Repositories
             _context.Books.Remove(bookToRemove);
             _context.SaveChanges();
         }
+
+        public async Task SaveChanges()
+        {
+            await _context.SaveChangesAsync();
+        }
     }
 }
