@@ -9,5 +9,9 @@ namespace CRUD.DAL.Entities
         public string Title { get; set; }
 
         public int PagesCount { get; set; }
+
+        public Guid AuthorId { get; set; }
+
+        public Author Author { get; set; }
     }
 }

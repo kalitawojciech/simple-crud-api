@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRUD.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200917202543_Author")]
-    partial class Author
+    [Migration("20200918170835_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,15 +40,15 @@ namespace CRUD.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a49272f0-b645-4e5c-80a7-343de5babcfd"),
+                            Id = new Guid("450271d8-0091-4bf4-beb0-b899e026560e"),
                             Age = 67,
                             Name = "Andrzej"
                         },
                         new
                         {
-                            Id = new Guid("08edc18a-4151-425f-af2c-fcbda9463f0d"),
+                            Id = new Guid("db67e008-1c68-463e-a7b2-e75ad5a82a7f"),
                             Age = 44,
-                            Name = "Mareczek"
+                            Name = "Henryk"
                         });
                 });
 
@@ -56,6 +56,9 @@ namespace CRUD.DAL.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AuthorId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("PagesCount")
@@ -66,21 +69,34 @@ namespace CRUD.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AuthorId");
+
                     b.ToTable("Books");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7d5a68c2-5312-4ced-a657-46c43ae8c5a9"),
+                            Id = new Guid("91992789-5e7f-4c04-86b8-12df2933fdc8"),
+                            AuthorId = new Guid("450271d8-0091-4bf4-beb0-b899e026560e"),
                             PagesCount = 320,
                             Title = "Wiedźmin"
                         },
                         new
                         {
-                            Id = new Guid("b266db67-8a1f-4276-86c9-e78254885795"),
+                            Id = new Guid("bc6728be-a2d5-40ec-a7db-c1e94557a2f8"),
+                            AuthorId = new Guid("db67e008-1c68-463e-a7b2-e75ad5a82a7f"),
                             PagesCount = 280,
                             Title = "Krzyżacy"
                         });
+                });
+
+            modelBuilder.Entity("CRUD.DAL.Entities.Book", b =>
+                {
+                    b.HasOne("CRUD.DAL.Entities.Author", "Author")
+                        .WithMany("Books")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

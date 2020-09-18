@@ -10,7 +10,9 @@ namespace CRUD.API
     {
         public MappingProfile()
         {
-            CreateMap<Book, BookInfoResponse>();
+            CreateMap<Book, BookInfoResponse>()
+                .ForMember(x => x.AuthorResponse, opt => opt.MapFrom(y => y.Author));
+
             CreateMap<Author, AuthorInfoResponse>();
         }
     }

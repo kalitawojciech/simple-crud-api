@@ -36,7 +36,7 @@ namespace CRUD.API
             services.AddTransient<IBooksService, BooksService>();
             services.AddTransient<IBooksRepository, BooksRepository>();
             services.AddTransient<IAuthorsService, AuthorsService>();
-            services.AddTransient<IAuthorRepository, AuthorRepository>();
+            services.AddTransient<IAuthorsRepository, AuthorRepository>();
 
             var mapperConfig = new MapperConfiguration(mc =>
             {

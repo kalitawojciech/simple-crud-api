@@ -13,9 +13,9 @@ namespace CRUD.Services.Services
     public class AuthorsService : IAuthorsService
     {
         private readonly IMapper _mapper;
-        private readonly IAuthorRepository _authorsRepository;
+        private readonly IAuthorsRepository _authorsRepository;
 
-        public AuthorsService(IMapper mapper, IAuthorRepository authorsRepository)
+        public AuthorsService(IMapper mapper, IAuthorsRepository authorsRepository)
         {
             _mapper = mapper;
             _authorsRepository = authorsRepository;

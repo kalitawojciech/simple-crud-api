@@ -6,7 +6,7 @@ using CRUD.DAL.Entities;
 
 namespace CRUD.DAL.Repositories.Interfaces
 {
-    public interface IAuthorRepository
+    public interface IAuthorsRepository
     {
         public Task<List<Author>> GetAllAuthor();
     }

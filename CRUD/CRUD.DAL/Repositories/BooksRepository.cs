@@ -26,14 +26,19 @@ namespace CRUD.DAL.Repositories
 
         public async Task<List<Book>> GetAllBooks()
         {
-            List<Book> result = await _context.Books.ToListAsync();
+            List<Book> result = await _context.Books
+                .Include(b => b.Author)
+                .ToListAsync();
 
             return result;
         }
 
         public async Task<Book> GetBookById(Guid bookId)
         {
-            Book bookFromDb = await _context.Books.Where(b => b.Id == bookId).FirstOrDefaultAsync();
+            Book bookFromDb = await _context.Books
+                .Include(b => b.Author)
+                .Where(b => b.Id == bookId)
+                .FirstOrDefaultAsync();
 
             return bookFromDb;
         }
