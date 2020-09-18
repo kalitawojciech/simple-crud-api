@@ -17,5 +17,7 @@ namespace CRUD.DAL.Repositories.Interfaces
         public Task<Book> GetBookByTitle(string bookTitle);
 
         public void RemoveBook(Book bookToRemove);
+
+        public Task SaveChanges();
     }
 }

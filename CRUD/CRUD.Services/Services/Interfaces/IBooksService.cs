@@ -16,5 +16,7 @@ namespace CRUD.Services.Services
         public Task AddNewBook(AddBookRequest addBookRequest);
 
         public Task RemoveBook(Guid bookId);
+
+        public Task EditBook(EditBookRequest editBookRequest);
     }
 }
