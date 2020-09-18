@@ -15,6 +15,7 @@ namespace CRUD.DAL
 
         public DbSet<Book> Books { get; set; }
 
+        public DbSet<Author> Author { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Book>().HasData(
@@ -29,6 +30,20 @@ namespace CRUD.DAL
                     Id = Guid.NewGuid(),
                     Title = "Krzyżacy",
                     PagesCount = 280
+                }
+                );
+            modelBuilder.Entity<Author>().HasData(
+                new Author()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Andrzej",
+                    Age = 67
+                },
+                new Author()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Mareczek",
+                    Age = 44
                 }
                 );
         }

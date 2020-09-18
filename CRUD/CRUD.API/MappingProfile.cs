@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 
 using CRUD.DAL.Entities;
+using CRUD.Services.Dtos.Authors.Response;
 using CRUD.Services.Dtos.Books.Response;
 
 namespace CRUD.API
@@ -10,6 +11,7 @@ namespace CRUD.API
         public MappingProfile()
         {
             CreateMap<Book, BookInfoResponse>();
+            CreateMap<Author, AuthorInfoResponse>();
         }
     }
 }

@@ -12,6 +12,7 @@ using CRUD.DAL.Repositories.Interfaces;
 using CRUD.Services.Services;
 
 using AutoMapper;
+using CRUD.Services.Services.Interfaces;
 
 namespace CRUD.API
 {
@@ -34,6 +35,8 @@ namespace CRUD.API
 
             services.AddTransient<IBooksService, BooksService>();
             services.AddTransient<IBooksRepository, BooksRepository>();
+            services.AddTransient<IAuthorsService, AuthorsService>();
+            services.AddTransient<IAuthorRepository, AuthorRepository>();
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
