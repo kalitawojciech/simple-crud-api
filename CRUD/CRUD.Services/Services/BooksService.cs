@@ -49,20 +49,20 @@ namespace CRUD.Services.Services
             await _booksRepository.AddNewBook(bookToAdd);
         }
 
-        public async Task<List<BookInfoResponse>> GetAllBooks()
+        public async Task<List<BookFullInfoResponse>> GetAllBooks()
         {
             List<Book> booksFromDb = await _booksRepository.GetAllBooks();
 
-            var booksToReturn = _mapper.Map<List<BookInfoResponse>>(booksFromDb);
+            var booksToReturn = _mapper.Map<List<BookFullInfoResponse>>(booksFromDb);
 
             return booksToReturn;
         }
 
-        public async Task<BookInfoResponse> GetBookById(Guid bookId)
+        public async Task<BookFullInfoResponse> GetBookById(Guid bookId)
         {
             Book bookFromDb = await _booksRepository.GetBookById(bookId);
 
-            var bookToReturn = _mapper.Map<BookInfoResponse>(bookFromDb);
+            var bookToReturn = _mapper.Map<BookFullInfoResponse>(bookFromDb);
 
             return bookToReturn;
         }

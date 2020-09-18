@@ -9,9 +9,9 @@ namespace CRUD.Services.Services
 {
     public interface IBooksService
     {
-        public Task<List<BookInfoResponse>> GetAllBooks();
+        public Task<List<BookFullInfoResponse>> GetAllBooks();
 
-        public Task<BookInfoResponse> GetBookById(Guid bookId);
+        public Task<BookFullInfoResponse> GetBookById(Guid bookId);
 
         public Task AddNewBook(AddBookRequest addBookRequest);
 

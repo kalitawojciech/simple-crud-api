@@ -1,8 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-
-using CRUD.Services.Services;
 using CRUD.Services.Services.Interfaces;
 
 namespace CRUD.API.Controllers

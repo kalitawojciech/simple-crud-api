@@ -1,8 +1,10 @@
 ﻿using System;
 
+using CRUD.Services.Dtos.Authors.Response;
+
 namespace CRUD.Services.Dtos.Books.Response
 {
-    public class BookInfoResponse
+    public class BookFullInfoResponse
     {
         public Guid Id { get; set; }
 
@@ -11,5 +13,7 @@ namespace CRUD.Services.Dtos.Books.Response
         public int PagesCount { get; set; }
 
         public Guid AuthorId { get; set; }
+
+        public AuthorInfoResponse AuthorResponse { get; set; }
     }
 }

@@ -19,7 +19,9 @@ namespace CRUD.DAL.Repositories
 
         public async Task<List<Author>> GetAllAuthor()
         {
-            List<Author> result = await _context.Author.ToListAsync();
+            List<Author> result = await _context.Author
+                .Include(a => a.Books)
+                .ToListAsync();
 
             return result;
         }

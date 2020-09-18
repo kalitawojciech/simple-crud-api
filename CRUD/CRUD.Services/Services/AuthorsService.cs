@@ -1,12 +1,12 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using AutoMapper;
+
 using CRUD.DAL.Entities;
 using CRUD.DAL.Repositories.Interfaces;
 using CRUD.Services.Dtos.Authors.Response;
 using CRUD.Services.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CRUD.Services.Services
 {
@@ -21,11 +21,11 @@ namespace CRUD.Services.Services
             _authorsRepository = authorsRepository;
         }
 
-        public async Task<List<AuthorInfoResponse>> GetAllAuthors()
+        public async Task<List<AuthorFullInfoResponse>> GetAllAuthors()
         {
             List<Author> authorsFromDb = await _authorsRepository.GetAllAuthor();
 
-            var authorsToReturn = _mapper.Map<List<AuthorInfoResponse>>(authorsFromDb);
+            var authorsToReturn = _mapper.Map<List<AuthorFullInfoResponse>>(authorsFromDb);
 
             return authorsToReturn;
         }

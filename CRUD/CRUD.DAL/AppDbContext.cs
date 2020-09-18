@@ -3,7 +3,6 @@
 using Microsoft.EntityFrameworkCore;
 
 using CRUD.DAL.Entities;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRUD.DAL
 {
