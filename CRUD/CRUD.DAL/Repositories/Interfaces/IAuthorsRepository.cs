@@ -11,5 +11,9 @@ namespace CRUD.DAL.Repositories.Interfaces
         public Task<List<Author>> GetAllAuthor();
 
         public Task<Author> GetAuthorById(Guid id);
+
+        public void RemoveAuthor(Author authorToRemove);
+
+        public Task AddNewAuthor(Author authorToAdd);
     }
 }

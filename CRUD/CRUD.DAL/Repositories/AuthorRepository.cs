@@ -19,6 +19,15 @@ namespace CRUD.DAL.Repositories
             _context = context;
         }
 
+        public async Task AddNewAuthor(Author authorToAdd)
+        {
+            await _context.Author.AddAsync(authorToAdd);
+            await _context.SaveChangesAsync();
+        }
+        public async Task SaveChanges()
+        {
+            await _context.SaveChangesAsync();
+        }
         public async Task<List<Author>> GetAllAuthor()
         {
             List<Author> result = await _context.Author
@@ -31,10 +40,17 @@ namespace CRUD.DAL.Repositories
         public async Task<Author> GetAuthorById(Guid id)
         {
             Author result = await _context.Author
+                .Include(a => a.Books)
                 .Where(a => a.Id == id)
                 .FirstOrDefaultAsync();
 
             return result;
+        }
+
+        public void RemoveAuthor(Author authorToRemove)
+        {
+            _context.Author.Remove(authorToRemove);
+            _context.SaveChanges();
         }
     }
 }
