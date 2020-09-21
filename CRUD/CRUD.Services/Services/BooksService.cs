@@ -16,9 +16,12 @@ namespace CRUD.Services.Services
     {
         private readonly IMapper _mapper;
         private readonly IBooksRepository _booksRepository;
-        public BooksService(IBooksRepository booksRepository, IMapper mapper)
+        private readonly IAuthorsRepository _authorsRepository;
+
+        public BooksService(IBooksRepository booksRepository, IAuthorsRepository authorsRepository, IMapper mapper)
         {
             _booksRepository = booksRepository;
+            _authorsRepository = authorsRepository;
             _mapper = mapper;
         }
 
@@ -37,6 +40,11 @@ namespace CRUD.Services.Services
             if((await _booksRepository.GetBookByTitle(addBookRequest.Title)) != null)
             {
                 throw new BadRequestException("Ten tytuł został już użyty!!");
+            }
+
+            if ((await _authorsRepository.GetAuthorById(addBookRequest.AuthorId)) == null)
+            {
+                throw new BadRequestException("Nie ma takiego autora!");
             }
 
             Book bookToAdd = new Book

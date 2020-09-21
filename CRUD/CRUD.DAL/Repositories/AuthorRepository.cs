@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +24,15 @@ namespace CRUD.DAL.Repositories
             List<Author> result = await _context.Author
                 .Include(a => a.Books)
                 .ToListAsync();
+
+            return result;
+        }
+
+        public async Task<Author> GetAuthorById(Guid id)
+        {
+            Author result = await _context.Author
+                .Where(a => a.Id == id)
+                .FirstOrDefaultAsync();
 
             return result;
         }
