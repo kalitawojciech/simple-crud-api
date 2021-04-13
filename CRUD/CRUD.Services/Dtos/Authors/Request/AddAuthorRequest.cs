@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CRUD.Services.Dtos.Authors.Request
+﻿namespace CRUD.Services.Dtos.Authors.Request
 {
     public class AddAuthorRequest
     {

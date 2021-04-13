@@ -2,15 +2,13 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
-using Microsoft.EntityFrameworkCore;
-
 using CRUD.DAL.Entities;
 using CRUD.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CRUD.DAL.Repositories
 {
-    public class AuthorRepository : IAuthorsRepository
+    public class AuthorRepository : IAuthorRepository
     {
         private readonly AppDbContext _context;
 
@@ -19,7 +17,7 @@ namespace CRUD.DAL.Repositories
             _context = context;
         }
 
-        public async Task AddNewAuthor(Author authorToAdd)
+        public async Task AddNew(Author authorToAdd)
         {
             await _context.Author.AddAsync(authorToAdd);
             await _context.SaveChangesAsync();
@@ -28,7 +26,7 @@ namespace CRUD.DAL.Repositories
         {
             await _context.SaveChangesAsync();
         }
-        public async Task<List<Author>> GetAllAuthor()
+        public async Task<List<Author>> GetAll()
         {
             List<Author> result = await _context.Author
                 .Include(a => a.Books)
@@ -37,7 +35,7 @@ namespace CRUD.DAL.Repositories
             return result;
         }
 
-        public async Task<Author> GetAuthorById(Guid id)
+        public async Task<Author> GetById(Guid id)
         {
             Author result = await _context.Author
                 .Include(a => a.Books)
@@ -47,7 +45,7 @@ namespace CRUD.DAL.Repositories
             return result;
         }
 
-        public void RemoveAuthor(Author authorToRemove)
+        public void Remove(Author authorToRemove)
         {
             _context.Author.Remove(authorToRemove);
             _context.SaveChanges();

@@ -10,41 +10,41 @@ namespace CRUD.API.Controllers
     [ApiController]
     public class AuthorsController : ControllerBase
     {
-        private IAuthorsService _authorsService;
+        private IAuthorService _authorService;
 
-        public AuthorsController(IAuthorsService authorsService)
+        public AuthorsController(IAuthorService authorService)
         {
-            _authorsService = authorsService;
+            _authorService = authorService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAuthors()
+        public async Task<IActionResult> GetAll()
         {
-            var result = await _authorsService.GetAllAuthors();
+            var result = await _authorService.GetAll();
 
             return Ok(result);
         }
 
         [HttpGet("id")]
-        public async Task<IActionResult> GetAuthorById(Guid id)
+        public async Task<IActionResult> GetById(Guid id)
         {
-            var result = await _authorsService.GetAuthorById(id);
+            var result = await _authorService.GetById(id);
 
             return Ok(result);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> RemoveAuthor(Guid id)
+        public async Task<IActionResult> Remove(Guid id)
         {
-            await _authorsService.RemoveAuthor(id);
+            await _authorService.Remove(id);
 
             return Ok();
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddNewAuthor([FromBody] AddAuthorRequest addAuthorRequest)
+        public async Task<IActionResult> AddNew([FromBody] AddAuthorRequest addAuthorRequest)
         {
-            await _authorsService.AddNewAuthor(addAuthorRequest);
+            await _authorService.AddNew(addAuthorRequest);
 
             return Ok();
         }

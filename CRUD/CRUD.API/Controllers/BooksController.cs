@@ -11,49 +11,49 @@ namespace CRUD.API.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        private IBooksService _booksService;
+        private IBookService _bookService;
 
-        public BooksController(IBooksService bookService)
+        public BooksController(IBookService bookService)
         {
-            _booksService = bookService;
+            _bookService = bookService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllBooks()
+        public async Task<IActionResult> GetAll()
         {
-            var result = await _booksService.GetAllBooks();
+            var result = await _bookService.GetAll();
 
             return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetBookById(Guid id)
+        public async Task<IActionResult> GetById(Guid id)
         {
-            var result = await _booksService.GetBookById(id);
+            var result = await _bookService.GetById(id);
 
             return Ok(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddNewBook([FromBody] AddBookRequest addBookRequest)
+        public async Task<IActionResult> AddNew([FromBody] AddBookRequest addBookRequest)
         {
-            await _booksService.AddNewBook(addBookRequest);
+            await _bookService.AddNew(addBookRequest);
 
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> RemoveBookById(Guid id)
+        public async Task<IActionResult> Remove(Guid id)
         {
-            await _booksService.RemoveBook(id);
+            await _bookService.Remove(id);
 
             return Ok();
         }
 
         [HttpPut]
-        public async Task<IActionResult> EditBook([FromBody] EditBookRequest editBookRequest)
+        public async Task<IActionResult> Edit([FromBody] EditBookRequest editBookRequest)
         {
-            await _booksService.EditBook(editBookRequest);
+            await _bookService.Edit(editBookRequest);
 
             return Ok();
         }

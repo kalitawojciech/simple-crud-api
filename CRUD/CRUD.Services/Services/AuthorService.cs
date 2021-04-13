@@ -13,18 +13,18 @@ using CRUD.Services.Services.Interfaces;
 
 namespace CRUD.Services.Services
 {
-    public class AuthorsService : IAuthorsService
+    public class AuthorService : IAuthorService
     {
         private readonly IMapper _mapper;
-        private readonly IAuthorsRepository _authorsRepository;
+        private readonly IAuthorRepository _authorRepository;
 
-        public AuthorsService(IMapper mapper, IAuthorsRepository authorsRepository)
+        public AuthorService(IMapper mapper, IAuthorRepository authorRepository)
         {
             _mapper = mapper;
-            _authorsRepository = authorsRepository;
+            _authorRepository = authorRepository;
         }
 
-        public async Task AddNewAuthor(AddAuthorRequest addAuthorRequest)
+        public async Task AddNew(AddAuthorRequest addAuthorRequest)
         {
             if(addAuthorRequest.Name == null)
             {
@@ -43,30 +43,30 @@ namespace CRUD.Services.Services
                 Age = addAuthorRequest.Age
             };
 
-            await _authorsRepository.AddNewAuthor(author);
+            await _authorRepository.AddNew(author);
         }
 
-        public async Task<List<AuthorFullInfoResponse>> GetAllAuthors()
+        public async Task<List<AuthorFullInfoResponse>> GetAll()
         {
-            List<Author> authorsFromDb = await _authorsRepository.GetAllAuthor();
+            List<Author> authorsFromDb = await _authorRepository.GetAll();
 
             var authorsToReturn = _mapper.Map<List<AuthorFullInfoResponse>>(authorsFromDb);
 
             return authorsToReturn;
         }
 
-        public async Task<AuthorFullInfoResponse> GetAuthorById(Guid id)
+        public async Task<AuthorFullInfoResponse> GetById(Guid id)
         {
-            Author authorFromDb = await _authorsRepository.GetAuthorById(id);
+            Author authorFromDb = await _authorRepository.GetById(id);
 
             var authorToReturn = _mapper.Map<AuthorFullInfoResponse>(authorFromDb);
 
             return authorToReturn;
         }
 
-        public async Task RemoveAuthor(Guid id)
+        public async Task Remove(Guid id)
         {
-            Author author = await _authorsRepository.GetAuthorById(id);
+            Author author = await _authorRepository.GetById(id);
 
             if(author == null)
             {
@@ -78,7 +78,7 @@ namespace CRUD.Services.Services
                 throw new BadRequestException("Autor ma przypisane książki");
             }
 
-            _authorsRepository.RemoveAuthor(author);
+            _authorRepository.Remove(author);
         }
     }
 }

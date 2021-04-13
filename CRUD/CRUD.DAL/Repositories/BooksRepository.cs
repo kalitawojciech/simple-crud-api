@@ -10,7 +10,7 @@ using System;
 
 namespace CRUD.DAL.Repositories
 {
-    public class BooksRepository : IBooksRepository
+    public class BooksRepository : IBookRepository
     {
         private readonly AppDbContext _context;
         public BooksRepository(AppDbContext context)
@@ -18,13 +18,13 @@ namespace CRUD.DAL.Repositories
             _context = context;
         }
 
-        public async Task AddNewBook(Book bookToAdd)
+        public async Task AddNew(Book bookToAdd)
         {
             await _context.Books.AddAsync(bookToAdd);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Book>> GetAllBooks()
+        public async Task<List<Book>> GetAll()
         {
             List<Book> result = await _context.Books
                 .Include(b => b.Author)
@@ -33,7 +33,7 @@ namespace CRUD.DAL.Repositories
             return result;
         }
 
-        public async Task<Book> GetBookById(Guid bookId)
+        public async Task<Book> GetById(Guid bookId)
         {
             Book bookFromDb = await _context.Books
                 .Include(b => b.Author)
@@ -43,14 +43,14 @@ namespace CRUD.DAL.Repositories
             return bookFromDb;
         }
 
-        public async Task<Book> GetBookByTitle(string bookTitle)
+        public async Task<Book> GetByTitle(string bookTitle)
         {
             Book bookFromDb = await _context.Books.Where(b => b.Title.ToLower() == bookTitle.ToLower()).FirstOrDefaultAsync();
 
             return bookFromDb;
         }
 
-        public void RemoveBook(Book bookToRemove)
+        public void Remove(Book bookToRemove)
         {
             _context.Books.Remove(bookToRemove);
             _context.SaveChanges();

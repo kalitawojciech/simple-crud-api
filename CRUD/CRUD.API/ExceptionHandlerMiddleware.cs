@@ -39,6 +39,10 @@ namespace CRUD.API
                     statusCode = HttpStatusCode.BadRequest;
                     break;
 
+                case Exception e when exceptionType == typeof(NotFoundException):
+                    statusCode = HttpStatusCode.NotFound;
+                    break;
+
                 //TODO: Custom exception
 
                 default:

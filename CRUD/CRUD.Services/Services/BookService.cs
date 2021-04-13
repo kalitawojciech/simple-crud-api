@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using AutoMapper;
-
 using CRUD.DAL.Entities;
 using CRUD.DAL.Repositories.Interfaces;
 using CRUD.Services.Dtos.Books.Request;
@@ -12,20 +10,20 @@ using CRUD.Services.Exceptions;
 
 namespace CRUD.Services.Services
 {
-    public class BooksService : IBooksService
+    public class BookService : IBookService
     {
         private readonly IMapper _mapper;
-        private readonly IBooksRepository _booksRepository;
-        private readonly IAuthorsRepository _authorsRepository;
+        private readonly IBookRepository _bookRepository;
+        private readonly IAuthorRepository _authorRepository;
 
-        public BooksService(IBooksRepository booksRepository, IAuthorsRepository authorsRepository, IMapper mapper)
+        public BookService(IBookRepository bookRepository, IAuthorRepository authorRepository, IMapper mapper)
         {
-            _booksRepository = booksRepository;
-            _authorsRepository = authorsRepository;
+            _bookRepository = bookRepository;
+            _authorRepository = authorRepository;
             _mapper = mapper;
         }
 
-        public async Task AddNewBook(AddBookRequest addBookRequest)
+        public async Task AddNew(AddBookRequest addBookRequest)
         {
             if(string.IsNullOrEmpty(addBookRequest.Title))
             {
@@ -37,12 +35,12 @@ namespace CRUD.Services.Services
                 throw new BadRequestException("Błędna liczba stron!!");
             }
 
-            if((await _booksRepository.GetBookByTitle(addBookRequest.Title)) != null)
+            if((await _bookRepository.GetByTitle(addBookRequest.Title)) != null)
             {
                 throw new BadRequestException("Ten tytuł został już użyty!!");
             }
 
-            if ((await _authorsRepository.GetAuthorById(addBookRequest.AuthorId)) == null)
+            if ((await _authorRepository.GetById(addBookRequest.AuthorId)) == null)
             {
                 throw new BadRequestException("Nie ma takiego autora!");
             }
@@ -54,42 +52,42 @@ namespace CRUD.Services.Services
                 PagesCount = addBookRequest.PagesCount
             };
 
-            await _booksRepository.AddNewBook(bookToAdd);
+            await _bookRepository.AddNew(bookToAdd);
         }
 
-        public async Task<List<BookFullInfoResponse>> GetAllBooks()
+        public async Task<List<BookFullInfoResponse>> GetAll()
         {
-            List<Book> booksFromDb = await _booksRepository.GetAllBooks();
+            List<Book> booksFromDb = await _bookRepository.GetAll();
 
             var booksToReturn = _mapper.Map<List<BookFullInfoResponse>>(booksFromDb);
 
             return booksToReturn;
         }
 
-        public async Task<BookFullInfoResponse> GetBookById(Guid bookId)
+        public async Task<BookFullInfoResponse> GetById(Guid bookId)
         {
-            Book bookFromDb = await _booksRepository.GetBookById(bookId);
+            Book bookFromDb = await _bookRepository.GetById(bookId);
 
             var bookToReturn = _mapper.Map<BookFullInfoResponse>(bookFromDb);
 
             return bookToReturn;
         }
 
-        public async Task RemoveBook(Guid bookId)
+        public async Task Remove(Guid bookId)
         {
-            Book bookFromDb = await _booksRepository.GetBookById(bookId);
+            Book bookFromDb = await _bookRepository.GetById(bookId);
 
             if (bookFromDb == null)
             {
                 throw new BadRequestException("Nie istnieje taka książka!!");
             }
 
-            _booksRepository.RemoveBook(bookFromDb);
+            _bookRepository.Remove(bookFromDb);
         }
 
-        public async Task EditBook(EditBookRequest editBookRequest)
+        public async Task Edit(EditBookRequest editBookRequest)
         {
-            Book bookFromDb = await _booksRepository.GetBookById(editBookRequest.Id);
+            Book bookFromDb = await _bookRepository.GetById(editBookRequest.Id);
 
             if (bookFromDb == null)
             {
@@ -108,7 +106,7 @@ namespace CRUD.Services.Services
 
             if(editBookRequest.Title.ToLower() != bookFromDb.Title.ToLower())
             {
-                if ((await _booksRepository.GetBookByTitle(editBookRequest.Title)) != null)
+                if ((await _bookRepository.GetByTitle(editBookRequest.Title)) != null)
                 {
                     throw new BadRequestException("Ten tytuł został już użyty!!");
                 }
@@ -117,7 +115,7 @@ namespace CRUD.Services.Services
             bookFromDb.Title = editBookRequest.Title;
             bookFromDb.PagesCount = editBookRequest.PagesCount;
 
-            await _booksRepository.SaveChanges();
+            await _bookRepository.SaveChanges();
         }
     }
 }

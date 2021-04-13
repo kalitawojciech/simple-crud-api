@@ -3,6 +3,7 @@
 using CRUD.DAL.Entities;
 using CRUD.Services.Dtos.Authors.Response;
 using CRUD.Services.Dtos.Books.Response;
+using CRUD.Services.Dtos.Categories.Response;
 
 namespace CRUD.API
 {
@@ -19,6 +20,9 @@ namespace CRUD.API
                 .ForMember(x => x.BooksResponse, opt => opt.MapFrom(y => y.Books));
 
             CreateMap<Author, AuthorInfoResponse>();
+
+            CreateMap<Category, CategoryFullInfoResponse>()
+                .ForMember(x => x.BooksResponse, opt => opt.MapFrom(y => y.Books));
         }
     }
 }

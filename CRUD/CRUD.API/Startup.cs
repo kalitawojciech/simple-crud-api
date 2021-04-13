@@ -33,10 +33,12 @@ namespace CRUD.API
             var ConnectionString = Configuration["ConnectionString:AppDbConnectionString"];
             services.AddDbContext<AppDbContext>(o => o.UseSqlServer(ConnectionString));
 
-            services.AddTransient<IBooksService, BooksService>();
-            services.AddTransient<IBooksRepository, BooksRepository>();
-            services.AddTransient<IAuthorsService, AuthorsService>();
-            services.AddTransient<IAuthorsRepository, AuthorRepository>();
+            services.AddTransient<IBookService, BookService>();
+            services.AddTransient<IBookRepository, BooksRepository>();
+            services.AddTransient<IAuthorService, AuthorService>();
+            services.AddTransient<IAuthorRepository, AuthorRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<ICategoryService, CategoryService>();
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
