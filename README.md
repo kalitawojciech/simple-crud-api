@@ -14,7 +14,7 @@
 * Author
 * Category
 
-<br/>![DB Diagram](docs\db_diagram.png)
+<br/>![DB Diagram](docs/db_diagram.png)
 
 <br/>
 
