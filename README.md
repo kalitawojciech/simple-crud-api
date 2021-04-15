@@ -1,5 +1,5 @@
 # Simple CRUD API
-## Spimple CRUD application created with ASP.NET Core 3.1<br/><br/>
+## Simple CRUD application created with ASP.NET Core 3.1<br/><br/>
 
 
 # Running appliacation
@@ -13,6 +13,8 @@
 * Book
 * Author
 * Category
+
+<br/>![DB Diagram](docs\db_diagram.png)
 
 <br/>
 
