@@ -2,7 +2,7 @@
 ## Simple CRUD application created with ASP.NET Core 3.1<br/><br/>
 
 
-# Running appliacation
+# Running application
 1. Open Package Menager Console with default project: **CRUD.DAL**
 2. Run command: **update-database**
 3. Run application on **IIS Express**
